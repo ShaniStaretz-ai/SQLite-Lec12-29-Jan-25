@@ -24,6 +24,9 @@ def end_treatment(_cursor, _conn) -> None:
     '''
     cursor.execute(get_car_query,(car_number,))
     rows_results = cursor.fetchone()
+    if rows_results is None:
+        print("this car registration number isn't in the system")
+        return;
     if rows_results['fixed']!=0:# TRUE=1,0=FALSE
         print("the car is already fixed")
     else:
@@ -44,6 +47,9 @@ def remove_from_garage(_cursor, _conn) -> None:
         '''
     cursor.execute(get_car_query, (car_number,))
     rows_results = cursor.fetchone()
+    if rows_results is None:
+        print("this car registration number isn't in the system")
+        return;
     if rows_results['fixed']!=1:# TRUE=1,0=FALSE
         print("the treatment is not completed yet")
     print(f"the treatment ended, contact the owner number {rows_results['owner_ph']}")
